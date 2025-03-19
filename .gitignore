@@ -10,3 +10,8 @@ Datasets/images/*
 Notebook/.ipynb_checkpoints/*
 src/__pycache__/*
 *.webm
+# Ignore all __pycache__ directories and compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
