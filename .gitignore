@@ -7,4 +7,5 @@ face-recog-env/*
 Datasets/images
 .webm
 Datasets/images/*
+Notebook/.ipynb_checkpoints/*
 *.webm
