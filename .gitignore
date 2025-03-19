@@ -5,4 +5,6 @@ Datasets/lfw-funneled.tgz/*
 face-recog-env
 face-recog-env/*
 Datasets/images
+.webm
 Datasets/images/*
+*.webm
