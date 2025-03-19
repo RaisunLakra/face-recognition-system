@@ -39,7 +39,14 @@ def main():
             return
 
         # List test images
-        test_images = os.listdir(TEST_DATASET_PATH)
+        test_images = []
+        for folder in os.listdir(TEST_DATASET_PATH):
+            folder_path = os.path.join(TEST_DATASET_PATH, folder)
+            if os.path.isdir(folder_path):
+                for image in os.listdir(folder_path):
+                    if image.lower().endswith(('.jpg','.png', '.jpeg')):
+                        test_images.append(os.path.join(folder, image))
+
         if not test_images:
             print("No test images found.")
             return
