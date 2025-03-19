@@ -1,0 +1,7 @@
+opencv-python
+face_recognition
+numpy
+dlib
+pickle
+git+https://github.com/ageitgey/face_recognition_models # face-recognition-model
+
