@@ -8,4 +8,5 @@ Datasets/images
 .webm
 Datasets/images/*
 Notebook/.ipynb_checkpoints/*
+src/__pycache__/*
 *.webm
