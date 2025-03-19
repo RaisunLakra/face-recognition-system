@@ -57,16 +57,16 @@ def main():
 
         # Let user select an image
         selected_index = int(input("Select an image by number: ")) - 1
+        if selected_index < 0 or selected_index >= len(test_images):
+            print("Invalid selection. Exiting.")
+            return
         selected_image = test_images[selected_index]
         image_path = os.path.join(TEST_DATASET_PATH, selected_image)
 
         # Read and recognize faces
         frame = cv2.imread(image_path)
         if frame is not None:
-            recognized_frame = recognize_faces(frame, data)
-            cv2.imshow("Recognized Faces", recognized_frame)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            recognize_faces(frame, data)
         else:
             print("Failed to load image.")
     
