@@ -6,9 +6,10 @@
 import cv2
 import os
 from src.face_detector import detect_live
-from src.face_encoder import encode_faces
+from src.face_encoder import encode_faces, encode_image
 from src.face_recognizer import recognize_faces
 from src.utils import load_encodings
+import pickle
 
 DATASET_PATH = "Datasets/processed_images/"
 ENCODINGS_FILE = "face_encodings.pkl"
@@ -23,9 +24,13 @@ if not os.path.exists(ENCODINGS_FILE):
 
 def main():
     print("Welcome to Face Recognition App!")
+    print("Enter your choice:")
     print("1. Live Face Detection")
     print("2. Recognize Faces from Test Image")
-    print("3. Exit")
+    print("3. Enter image path to face recognize.")
+    print("4. Insert images for Face Encoding")
+    print("5. Identify faces from video image.") # TODO: implement this
+    print("6. Exit")
     choice = input("Choose an option (1 or 2): ")
 
     if choice == "1":
@@ -71,10 +76,43 @@ def main():
             print("Failed to load image.")
     
     elif choice == "3":
+        image_path = input("Enter image path: ")
+        try:
+            data = load_encodings(ENCODINGS_FILE)
+        except FileNotFoundError:
+            print("Encoding file not found. Run the encoding process first.")
+            return
+        
+        try:
+            recognize_faces(image_path)
+        except FileNotFoundError:
+            print("Failed to load image.")
+        except Exception as e:
+            print(f"Error: {e}")
+
+    elif choice == "4":
+        image_path = input("Enter image path for face encoding.")
+        image_name = input("Enter image name for face encoding")
+        encodings = encode_image(image_path)
+        
+        # import encoded faces, then apend it to them
+        data = load_encodings(ENCODINGS_FILE)
+        data["encodings"].extend(encodings)
+        data["names"].extend(image_name)
+        
+        with open(ENCODINGS_FILE, "wb") as f:
+            pickle.dump(data, f)
+
+    elif choice == "5":
+        print("Function not implemented yet.") #TODO
+        exit(0)
+
+    elif choice == "6":
         print("Exiting...")
         exit(0)
     else:
-        print("Invalid choice. Exiting.")
+        print("Invalid choice. Please choose a valid option.")
+        main()
 
 if __name__ == "__main__":
     # Encode faces if not already done

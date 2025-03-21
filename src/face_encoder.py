@@ -3,6 +3,18 @@ import cv2
 import face_recognition
 import pickle
 
+def encode_image(image_path):
+    image = cv2.imread(image_path)
+    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Detect face locations
+    face_locations = face_recognition.face_locations(rgb_image)
+
+    # Get face encodings
+    encodings = face_recognition.face_encodings(rgb_image, face_locations)
+
+    return encodings
+
 def encode_faces(dataset_path, encodings_file):
     known_encodings = []
     known_names = []
